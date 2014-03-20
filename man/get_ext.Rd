@@ -1,0 +1,48 @@
+\name{get_ext}
+\alias{add_ext}
+\alias{get_ext}
+\alias{has_ext}
+\alias{is_ext}
+\alias{replace_ext}
+\alias{rm_ext}
+\title{Filename extension utilities}
+\usage{
+get_ext(x)
+has_ext(x)
+is_ext(x, ext)
+rm_ext(x)
+replace_ext(x, ext)
+add_ext(x, ext)
+}
+\arguments{
+  \item{x}{a character vector of the filenames.}
+
+  \item{ext}{a character scalar of the extension with or
+  without a leading point.}
+}
+\value{
+A character vector of the extensions or modified filenames
+or a logical vector indicating whether a filename has an
+extension or is a particular extension.
+}
+\description{
+Replaces, adds or removes (rm) extensions from filenames or
+test whether filename has an extension or is a filename
+with a particular extension. Functions are primarily
+wrappers on the tools package functions \code{file_ext} and
+\code{file_path_sans_ext}.
+}
+\examples{
+x <- c("file", "file.txt", "file.txt.zip")
+get_ext(x)
+has_ext(x)
+is_ext(x, "txt")
+is_ext(x, ".txt")
+rm_ext(x)
+replace_ext(x, "md")
+add_ext(x, "md")
+}
+\seealso{
+\code{\link{file_ext}} and \code{\link{file_path_sans_ext}}
+}
+
