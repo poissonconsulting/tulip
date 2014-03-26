@@ -34,13 +34,3 @@ is.windows <- function () {
   names(flag) <- NULL
   flag
 }
-
-#' Convert OSX file path to windows format
-#' 
-#' @return A character scalar of the modified path
-#' @export
-osx2win <- function (path) {
-  assert_that(is.character(path))
-  
-  gsub("/", "\\\\", path)
-}
