@@ -1,8 +1,8 @@
-\name{get_user}
-\alias{get_user}
+\name{user}
+\alias{user}
 \title{Get user}
 \usage{
-get_user()
+user()
 }
 \value{
 A character scalar
