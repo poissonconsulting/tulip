@@ -33,14 +33,14 @@ wrappers on the tools package functions \code{file_ext} and
 \code{file_path_sans_ext}.
 }
 \examples{
-x <- c("file", "file.txt", "file.txt.zip")
+x <- c('file', 'file.txt', 'file.txt.zip')
 get_ext(x)
 has_ext(x)
-is_ext(x, "txt")
-is_ext(x, ".txt")
+is_ext(x, 'txt')
+is_ext(x, '.txt')
 rm_ext(x)
-replace_ext(x, "md")
-add_ext(x, "md")
+replace_ext(x, 'md')
+add_ext(x, 'md')
 }
 \seealso{
 \code{\link{file_ext}} and \code{\link{file_path_sans_ext}}

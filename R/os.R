@@ -4,7 +4,7 @@
 #' 
 #' @return A logical scalar
 #' @export
-is.osx <- function () {
+is.osx <- function() {
   flag <- Sys.info()["sysname"] == "Darwin"
   names(flag) <- NULL
   flag
@@ -17,7 +17,7 @@ is.osx <- function () {
 #'
 #' @return A logical scalar
 #' @export
-is.unix <- function () {
+is.unix <- function() {
   flag <- Sys.info()["sysname"] != "Windows"
   names(flag) <- NULL
   flag
@@ -29,8 +29,8 @@ is.unix <- function () {
 #' 
 #' @return A logical scalar
 #' @export
-is.windows <- function () {
+is.windows <- function() {
   flag <- Sys.info()["sysname"] == "Windows"
   names(flag) <- NULL
   flag
-}
+} 

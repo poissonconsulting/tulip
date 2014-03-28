@@ -1,0 +1,25 @@
+\name{dayte_time}
+\alias{dayte_time}
+\title{Daytetime}
+\usage{
+dayte_time(dt, year = 2000, month = 1)
+}
+\arguments{
+  \item{dt}{object to convert}
+
+  \item{year}{an integer element indicating the year of the
+  dayte. By default = 2000.}
+
+  \item{month}{an integer element indicating the month to
+  split the dayte by.}
+}
+\value{
+A daytetime object.
+}
+\description{
+Converts object dt to a daytetime.
+}
+\seealso{
+\code{\link{dayte}}.
+}
+
