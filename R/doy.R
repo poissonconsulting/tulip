@@ -6,7 +6,9 @@
 #' @return An integer vector indicating the day of the year from 
 #' 1 - 366.
 #' @seealso \code{\link{dayte}}
+#' @importFrom lubridate yday
 #' @export
 doy <- function(date) {
-  as.integer(format(as.Date(date), format = "%j"))
+  warning("'doy' is depreciated - use 'lubridate::yday'")
+  yday(date)
 } 

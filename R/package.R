@@ -6,7 +6,6 @@
 #' 
 #' @docType package
 #' @import assertthat lubridate
-#' @importFrom tools file_ext file_path_sans_ext
-#' @name package-tulip
-#' @aliases tulip
+#' @name tulip
+#' @aliases package-tulip tulip-package
 NULL 

@@ -29,6 +29,7 @@
 #' rm_ext(x)
 #' replace_ext(x, 'md')
 #' add_ext(x, 'md')
+#' @importFrom tools file_ext file_path_sans_ext
 #' @export
 get_ext <- function(x) {
   file_ext(x)

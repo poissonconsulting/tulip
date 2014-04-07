@@ -1,8 +1,8 @@
 \docType{package}
-\name{package-tulip}
+\name{tulip}
 \alias{package-tulip}
-\alias{package-tulip-package}
 \alias{tulip}
+\alias{tulip-package}
 \title{Poiscon Consulting's Utility Functions}
 \description{
 Wrapper functions to query the operating system and

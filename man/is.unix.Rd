@@ -8,7 +8,7 @@ is.unix()
 A logical scalar
 }
 \description{
-Tests if running a unix-based operating system, i.e., OSX
-or Linux.
+Tests if running a unix-based operating system, i.e., not
+windows.
 }
 

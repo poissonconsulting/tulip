@@ -1,6 +1,6 @@
 \name{is.windows}
 \alias{is.windows}
-\title{Test if windows}
+\title{Test if windows OS}
 \usage{
 is.windows()
 }
