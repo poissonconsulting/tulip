@@ -1,0 +1,21 @@
+\name{yesno}
+\alias{yesno}
+\title{Yes or No}
+\usage{
+yesno(question)
+}
+\arguments{
+  \item{question}{a character scalar of the question to ask
+  the user}
+}
+\value{
+A logical scalar indicating whether reponse was yes (TRUE)
+or no (FALSE).
+}
+\description{
+Asks user a question and returns a TRUE or FALSE to
+indicate whether user answered yes or no. Modified from
+devtools package internal function so that yes returns
+TRUE.
+}
+
