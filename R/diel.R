@@ -61,6 +61,7 @@ sun_calc <- function(d, Lat = 49.49, Long = -117.3) {
 #' @param Lat a numeric element indicating the latitude.
 #' @param Long a numeric element indicating the longitude.
 #' @return A factor with the levels Day and Night.
+#' @importFrom lubridate yday
 #' @export
 diel_period <- function(x, Lat = 49.49, Long = -117.3) {
   

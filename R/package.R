@@ -5,7 +5,7 @@
 #' consultings UTILity functions.
 #' 
 #' @docType package
-#' @import assertthat lubridate
+#' @import assertthat
 #' @name tulip
 #' @aliases package-tulip tulip-package
 NULL 

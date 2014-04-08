@@ -10,6 +10,7 @@
 #' integer element indicating the month to split the dayte by.
 #' @return A daytetime object.
 #' @seealso \code{\link{dayte}}.
+#' @importFrom lubridate year month day hour minute second with_tz
 #' @export
 dayte_time <- function(dt, year = 2000, month = 1) {
   UseMethod("dayte_time", dt)

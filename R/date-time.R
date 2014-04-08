@@ -6,6 +6,7 @@
 #' @param date coerced to as.Date
 #' @param time coerced to as.POSIXct
 #' @return A datetime object.
+#' @importFrom lubridate year month day hour minute second
 #' @export
 combine_date_time <- function(date, time) {
   date <- as.Date(date)
