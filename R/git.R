@@ -110,3 +110,29 @@ git_branch <- function(branch = "master", create = TRUE, push = create, dir = ".
   system(paste("git checkout", branch))
   return (invisible(TRUE))
 }
+
+#' Merge Git Branches
+#' 
+#' Merges git branch with current branch
+#' 
+#' @param branch string of branch name 
+#' @return Invisible flag indicating whether successful or error.
+#' @export
+git_merge <- function(branch = "dev") { 
+  assert_that(is.string(branch))
+  
+  branches <- system("git branch", intern = TRUE)
+  
+  if(paste0("* ", branch) %in% branches) {
+    warning("branch '", branch, "' is the current branch")
+    return (invisible(TRUE))
+  }
+
+  if(!paste0("  ", branch) %in% branches) {
+    warning("branch '", branch, "' not found")
+    return (invisible(TRUE))
+  }
+  
+  system(paste("git merge", branch))
+  return (invisible(TRUE))  
+}
