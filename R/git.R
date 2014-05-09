@@ -12,3 +12,16 @@ is_git_repository <- function (dir = ".") {
     stop("directory '", dir, "' not found")
   file.exists(file.path(dir, ".git"))
 }
+
+#' Check Git
+#' 
+#' Checks if git binary is on path. Throws error if not.
+#' 
+#' @examples
+#' check_git()
+#' @importFrom devtools on_path
+#' @export
+check_git <- function () {
+  if (!on_path("git")) 
+    stop("git is not on path")
+}

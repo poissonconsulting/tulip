@@ -2,6 +2,7 @@
 
 #### tulip 0.0.8.99
 
+- added `check_git()` to ensure git binary is on path
 - added `is_git_repository()`
 
 #### tulip 0.0.8
