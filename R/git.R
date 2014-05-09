@@ -30,16 +30,16 @@ check_git <- function () {
 #' 
 #' Commits (and potentially pushes) changes to the git repository in directory \code{dir}.
 #' 
-#' @param dir string of path to git repository directory
-#' @param push flag indicating whether to push to remote
 #' @param message string of commit message 
+#' @param push flag indicating whether to push to remote
+#' @param dir string of path to git repository directory
 #' @return Invisible logical scalar indicating whether successful or error.
 #' @export
-git_commit <- function(dir = ".", push = TRUE, message = paste(user(), Sys.time(), sep = ": ")) {
+git_commit <- function(message = paste(user(), Sys.time(), sep = ": "), push = TRUE, dir = ".") {
   
-  assert_that(is.string(dir))
   assert_that(is.string(message))
   assert_that(is.flag(push) && noNA(push))
+  assert_that(is.string(dir))
   
   if(!is_git_repository(dir))
     stop("directory '", dir, "' is not a git repository")
@@ -64,16 +64,17 @@ git_commit <- function(dir = ".", push = TRUE, message = paste(user(), Sys.time(
 #' 
 #' Changes git branch
 #' 
-#' @param dir string of path to git repository directory
 #' @param branch string of branch name 
 #' @param create flag indicating whether to create branch
-#' @param push
+#' @param push flag indicating whether to push newly created branch to remote
+#' @param dir string of path to git repository directory
 #' @return Invisible flag indicating whether successful or error.
 #' @export
-git_branch <- function(dir = ".", branch = "master", create = FALSE) {
-  assert_that(is.string(dir))
+git_branch <- function(branch = "master", create = TRUE, push = create, dir = ".") {
   assert_that(is.string(branch))
   assert_that(is.flag(create) && noNA(create))
+  assert_that(is.flag(push) && noNA(push))
+  assert_that(is.string(dir))
   
   if(!is_git_repository(dir))
     stop("directory '", dir, "' is not a git repository")
@@ -92,7 +93,18 @@ git_branch <- function(dir = ".", branch = "master", create = FALSE) {
   }
   
   if(paste0("  ", branch) %in% branches) {
-    system(paste0("git checkout ", branch))
+    system(paste("git checkout", branch))
     return (invisible(TRUE))    
   }
+  if(!create) {
+    warning("branch '", branch, "' not found")
+    return (invisible(FALSE))        
+  }
+  system(paste("git branch", branch))
+  
+  if(push) {
+    system(paste("git push -u origin", branch))
+  }
+  system(paste("git checkout", branch))
+  return (invisible(TRUE))
 }

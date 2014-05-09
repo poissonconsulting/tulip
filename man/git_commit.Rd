@@ -2,15 +2,15 @@
 \alias{git_commit}
 \title{Commit Git Changes}
 \usage{
-git_commit(dir = ".", push = TRUE, message = paste(user(), Sys.time(), sep
-  = ": "))
+git_commit(message = paste(user(), Sys.time(), sep = ": "), push = TRUE,
+  dir = ".")
 }
 \arguments{
-  \item{dir}{string of path to git repository directory}
+  \item{message}{string of commit message}
 
   \item{push}{flag indicating whether to push to remote}
 
-  \item{message}{string of commit message}
+  \item{dir}{string of path to git repository directory}
 }
 \value{
 Invisible logical scalar indicating whether successful or

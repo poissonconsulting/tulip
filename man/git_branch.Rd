@@ -2,16 +2,17 @@
 \alias{git_branch}
 \title{Change Git Branch}
 \usage{
-git_branch(dir = ".", branch = "master", create = FALSE)
+git_branch(branch = "master", create = TRUE, push = create, dir = ".")
 }
 \arguments{
-  \item{dir}{string of path to git repository directory}
-
   \item{branch}{string of branch name}
 
   \item{create}{flag indicating whether to create branch}
 
-  \item{push}{}
+  \item{push}{flag indicating whether to push newly created
+  branch to remote}
+
+  \item{dir}{string of path to git repository directory}
 }
 \value{
 Invisible flag indicating whether successful or error.
