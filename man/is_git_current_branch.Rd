@@ -1,0 +1,18 @@
+\name{is_git_current_branch}
+\alias{is_git_current_branch}
+\title{Test If Current Git Branch}
+\usage{
+is_git_current_branch(branch = "master", dir = ".")
+}
+\arguments{
+  \item{branch}{string of branch name}
+
+  \item{dir}{string of path to git repository directory}
+}
+\value{
+Flag indicating whether or not branch is the current branch
+}
+\description{
+Test whether branch is current git branch
+}
+
