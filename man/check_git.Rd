@@ -5,7 +5,7 @@
 check_git()
 }
 \description{
-Checks if git is on path. Throws error if not.
+Checks if git binary is on path. Throws error if not.
 }
 \examples{
 check_git()
