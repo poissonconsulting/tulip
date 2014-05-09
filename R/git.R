@@ -92,6 +92,8 @@ git_branch <- function(branch = "master", create = TRUE, push = create, dir = ".
     return (invisible(TRUE))
   }
   
+  git_commit()
+  
   if(paste0("  ", branch) %in% branches) {
     system(paste("git checkout", branch))
     return (invisible(TRUE))    
