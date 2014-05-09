@@ -11,6 +11,7 @@ To install the latest version:
     # install.packages("devtools")
     library(devtools)
     install_github("poissonconsulting/tulip@v0.0.8")
+    library(tulip)
     
 ## Contact
 
