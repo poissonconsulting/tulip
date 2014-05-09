@@ -6,11 +6,11 @@ packages.
 
 ## Installation
 
-To install the latest version:
+To install (and load) the latest version:
 
     # install.packages("devtools")
     library(devtools)
-    install_github("poissonconsulting/tulip@v0.0.8")
+    install_github("poissonconsulting/tulip")
     library(tulip)
     
 ## Contact
