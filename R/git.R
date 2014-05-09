@@ -59,10 +59,9 @@ git_push <- function (dir = ".") {
 #' @return Invisible logical scalar indicating whether successful or error.
 #' @export
 git_commit <- function(message = paste(user(), Sys.time(), sep = ": "), dir = ".") {
-  
+
   assert_that(is.string(message))
-  assert_that(is.flag(push) && noNA(push))
-  assert_that(is.string(dir))
+  assert_that(is.string(dir)) 
   
   if(!is_git_repository(dir))
     stop("directory '", dir, "' is not a git repository")
