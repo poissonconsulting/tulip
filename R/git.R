@@ -70,7 +70,7 @@ git_commit <- function(message = paste(user(), Sys.time(), sep = ": "), push = T
 #' @param dir string of path to git repository directory
 #' @return Invisible flag indicating whether successful or error.
 #' @export
-git_branch <- function(branch = "master", create = TRUE, push = create, dir = ".") {
+git_branch <- function(branch, create = TRUE, push = create, dir = ".") {
   assert_that(is.string(branch))
   assert_that(is.flag(create) && noNA(create))
   assert_that(is.flag(push) && noNA(push))
