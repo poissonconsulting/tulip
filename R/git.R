@@ -26,16 +26,39 @@ check_git <- function () {
     stop("git is not on path")
 }
 
-#' Commit Git Changes
+#' Push Git Commits
 #' 
-#' Commits (and potentially pushes) changes to the git repository in directory \code{dir}.
+#' Pushes commits in git repository in directory \code{dir} to remote.
 #' 
-#' @param message string of commit message 
-#' @param push flag indicating whether to push to remote
 #' @param dir string of path to git repository directory
 #' @return Invisible logical scalar indicating whether successful or error.
 #' @export
-git_commit <- function(message = paste(user(), Sys.time(), sep = ": "), push = TRUE, dir = ".") {
+git_push <- function (dir = ".") {
+  assert_that(is.string(dir))
+  
+  if(!is_git_repository(dir))
+    stop("directory '", dir, "' is not a git repository")
+  
+  check_git()
+  
+  wd <- getwd()
+  on.exit(setwd(wd))
+  
+  setwd(dir)
+  
+  system("git push")
+  invisible(TRUE)
+}
+
+#' Commit Git Changes
+#' 
+#' Commits changes to the git repository in directory \code{dir}.
+#' 
+#' @param message string of commit message 
+#' @param dir string of path to git repository directory
+#' @return Invisible logical scalar indicating whether successful or error.
+#' @export
+git_commit <- function(message = paste(user(), Sys.time(), sep = ": "), dir = ".") {
   
   assert_that(is.string(message))
   assert_that(is.flag(push) && noNA(push))
@@ -53,9 +76,6 @@ git_commit <- function(message = paste(user(), Sys.time(), sep = ": "), push = T
   
   system("git add --all .")
   system(paste0("git commit -a -m \"", message, "\""))
-  
-  if(push)
-    system("git push -u origin HEAD")
   
   invisible(TRUE)
 } 
