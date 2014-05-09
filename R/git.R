@@ -205,20 +205,17 @@ git_merge <- function(branch = "dev", dir = ".") {
   return (invisible(TRUE))  
 }
 
-#' Change Git Branch
+#' Create Git Branch
 #' 
-#' Changes git branch
+#' Create git branch
 #' 
 #' @param branch string of branch name 
-#' @param create flag indicating whether to create branch
-#' @param push flag indicating whether to push newly created branch to remote
 #' @param dir string of path to git repository directory
 #' @return Invisible flag indicating whether successful or error.
 #' @export
-git_branch <- function(branch = "master", create = TRUE, push = create, dir = ".") {
+git_branch <- function(branch, dir = ".") {
+
   assert_that(is.string(branch))
-  assert_that(is.flag(create) && noNA(create))
-  assert_that(is.flag(push) && noNA(push))
   assert_that(is.string(dir))
   
   if(!is_git_repository(dir))
@@ -231,27 +228,14 @@ git_branch <- function(branch = "master", create = TRUE, push = create, dir = ".
   
   setwd(dir)
   
-  branches <- system("git branch", intern = TRUE)
-  
-  if(paste0("* ", branch) %in% branches) {
-    return (invisible(TRUE))
+  if(is_git_branch(branch)) {
+    stop("branch '", branch, "' already exists")
   }
   
-  git_commit()
-  
-  if(paste0("  ", branch) %in% branches) {
-    system(paste("git checkout", branch))
-    return (invisible(TRUE))    
-  }
-  if(!create) {
-    warning("branch '", branch, "' not found")
-    return (invisible(FALSE))        
-  }
   system(paste("git branch", branch))
-  
-  if(push) {
-    system(paste("git push -u origin", branch))
-  }
-  system(paste("git checkout", branch))
   return (invisible(TRUE))
+}
+
+if(push) {
+  system(paste("git push -u origin", branch))
 }
