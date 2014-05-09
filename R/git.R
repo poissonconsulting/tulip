@@ -59,3 +59,40 @@ git_commit <- function(dir = ".", push = TRUE, message = paste(user(), Sys.time(
   
   invisible(TRUE)
 } 
+
+#' Change Git Branch
+#' 
+#' Changes git branch
+#' 
+#' @param dir string of path to git repository directory
+#' @param branch string of branch name 
+#' @param create flag indicating whether to create branch
+#' @param push
+#' @return Invisible flag indicating whether successful or error.
+#' @export
+git_branch <- function(dir = ".", branch = "master", create = FALSE) {
+  assert_that(is.string(dir))
+  assert_that(is.string(branch))
+  assert_that(is.flag(create) && noNA(create))
+  
+  if(!is_git_repository(dir))
+    stop("directory '", dir, "' is not a git repository")
+  
+  check_git()
+  
+  wd <- getwd()
+  on.exit(setwd(wd))
+  
+  setwd(dir)
+  
+  branches <- system("git branch", intern = TRUE)
+  
+  if(paste0("* ", branch) %in% branches) {
+    return (invisible(TRUE))
+  }
+  
+  if(paste0("  ", branch) %in% branches) {
+    system(paste0("git checkout ", branch))
+    return (invisible(TRUE))    
+  }
+}
