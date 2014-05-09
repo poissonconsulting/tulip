@@ -173,9 +173,10 @@ git_checkout <- function(branch = "master", dir = ".") {
 #' Merges git branch with current branch
 #' 
 #' @param branch string of branch name 
+#' @param dir string of path to git repository directory
 #' @return Invisible flag indicating whether successful or error.
 #' @export
-git_merge <- function(branch = "dev") { 
+git_merge <- function(branch = "dev", dir = ".") { 
   
   assert_that(is.string(branch))
   assert_that(is.string(dir))
