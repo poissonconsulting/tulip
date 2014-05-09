@@ -1,5 +1,9 @@
 # NEWS
 
+#### tulip 0.0.8.99
+
+- added `is_git_repository()`
+
 #### tulip 0.0.8
 
 - added `paste_names()` function

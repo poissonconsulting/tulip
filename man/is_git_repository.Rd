@@ -1,0 +1,20 @@
+\name{is_git_repository}
+\alias{is_git_repository}
+\title{Is Git Repository}
+\usage{
+is_git_repository(dir = ".")
+}
+\arguments{
+  \item{dir}{string of relative or absolute path to
+  directory. Default is current working directory.}
+}
+\value{
+Flag indicating whether directory is a git repository.
+}
+\description{
+Test if directory is a git repository.
+}
+\examples{
+is_git_repository()
+}
+
