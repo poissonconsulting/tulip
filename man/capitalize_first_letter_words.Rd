@@ -5,7 +5,7 @@
 capitalize_first_letter_words(x)
 }
 \arguments{
-  \item{x}{a character vector}
+  \item{x}{character vector}
 }
 \value{
 Modified character vector

@@ -1,0 +1,19 @@
+\name{reverse_strings}
+\alias{reverse_strings}
+\title{Reverse Strings}
+\usage{
+reverse_strings(x)
+}
+\arguments{
+  \item{x}{character vector}
+}
+\value{
+Reversed character vector
+}
+\description{
+Reverses strings
+}
+\examples{
+reverse_strings(c("abc","def"))
+}
+
