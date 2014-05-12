@@ -2,10 +2,12 @@
 \alias{git_merge}
 \title{Merge Git Branches}
 \usage{
-git_merge(branch = "dev")
+git_merge(branch = "dev", dir = ".")
 }
 \arguments{
   \item{branch}{string of branch name}
+
+  \item{dir}{string of path to git repository directory}
 }
 \value{
 Invisible flag indicating whether successful or error.

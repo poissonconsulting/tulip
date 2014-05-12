@@ -1,8 +1,8 @@
-\name{git_checkout}
-\alias{git_checkout}
-\title{Change Git Branch}
+\name{git_push_origin_branch}
+\alias{git_push_origin_branch}
+\title{Push Origin of Git Branch}
 \usage{
-git_checkout(branch = "master", dir = ".")
+git_push_origin_branch(branch = "dev", dir = ".")
 }
 \arguments{
   \item{branch}{string of branch name}
@@ -13,6 +13,6 @@ git_checkout(branch = "master", dir = ".")
 Invisible flag indicating whether successful or error.
 }
 \description{
-Changes git branch
+Pushes origin of git branch
 }
 

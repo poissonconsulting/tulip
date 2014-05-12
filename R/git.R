@@ -133,7 +133,7 @@ is_git_current_branch <- function (branch = "master", dir = ".") {
   paste0("* ", branch) %in% branches
 }
 
-#' Checkout Git Branch
+#' Change Git Branch
 #' 
 #' Changes git branch
 #' 
@@ -213,7 +213,7 @@ git_merge <- function(branch = "dev", dir = ".") {
 #' @param dir string of path to git repository directory
 #' @return Invisible flag indicating whether successful or error.
 #' @export
-git_branch <- function(branch, dir = ".") {
+git_branch <- function(branch = "dev", dir = ".") {
 
   assert_that(is.string(branch))
   assert_that(is.string(dir))
@@ -236,6 +236,33 @@ git_branch <- function(branch, dir = ".") {
   return (invisible(TRUE))
 }
 
-if(push) {
+#' Push Origin of Git Branch
+#' 
+#' Pushes origin of git branch
+#' 
+#' @param branch string of branch name 
+#' @param dir string of path to git repository directory
+#' @return Invisible flag indicating whether successful or error.
+#' @export
+git_push_origin_branch <- function(branch = "dev", dir = ".") {
+  
+  assert_that(is.string(branch))
+  assert_that(is.string(dir))
+  
+  if(!is_git_repository(dir))
+    stop("directory '", dir, "' is not a git repository")
+  
+  check_git()
+  
+  wd <- getwd()
+  on.exit(setwd(wd))
+  
+  setwd(dir)
+  
+  if(!is_git_branch(branch)) {
+    stop("branch '", branch, "' not found")
+  }
+  
   system(paste("git push -u origin", branch))
+  return (invisible(TRUE))
 }
