@@ -1,0 +1,18 @@
+\name{is_git_tag}
+\alias{is_git_tag}
+\title{Test If Git Tag}
+\usage{
+is_git_tag(tag, dir = ".")
+}
+\arguments{
+  \item{tag}{string of tag name}
+
+  \item{dir}{string of path to git repository directory}
+}
+\value{
+Flag indicating whether or not tag is a tag
+}
+\description{
+Test whether tag is a git tag
+}
+

@@ -1,0 +1,25 @@
+\name{git_push_tag}
+\alias{git_push_tag}
+\title{Push Tag}
+\usage{
+git_push_tag(tag, retag = FALSE, push = getOption("git.push", TRUE),
+  dir = ".")
+}
+\arguments{
+  \item{tag}{string of tag name}
+
+  \item{retag}{tag indicating whether to retag if already
+  exists}
+
+  \item{push}{flag indicating whether to push tag}
+
+  \item{dir}{string of path to git repository directory}
+}
+\value{
+Invisible logical scalar indicating whether successful or
+error.
+}
+\description{
+Pushes tag to remote repository.
+}
+

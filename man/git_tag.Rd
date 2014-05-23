@@ -1,0 +1,25 @@
+\name{git_tag}
+\alias{git_tag}
+\title{Tag Current Git}
+\usage{
+git_tag(tag, retag = FALSE, push = getOption("git.push", TRUE), dir = ".")
+}
+\arguments{
+  \item{tag}{string of tag name}
+
+  \item{retag}{tag indicating whether to retag if already
+  exists}
+
+  \item{push}{flag indicating whether to push tag}
+
+  \item{dir}{string of path to git repository directory}
+}
+\value{
+Invisible logical scalar indicating whether successful or
+error.
+}
+\description{
+Tags current branch in git repository in directory
+\code{dir}.
+}
+

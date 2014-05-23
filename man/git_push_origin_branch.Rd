@@ -1,6 +1,6 @@
 \name{git_push_origin_branch}
 \alias{git_push_origin_branch}
-\title{Push Origin of Git Branch}
+\title{Push Origin of Current Git Branch}
 \usage{
 git_push_origin_branch(branch = "dev", dir = ".")
 }
