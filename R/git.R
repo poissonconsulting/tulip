@@ -31,12 +31,15 @@ is_git_repository <- function (dir = ".") {
 #' Commits changes to the git repository in directory \code{dir}.
 #' 
 #' @param message string of commit message 
+#' @param push flag indicating whether to push commits
 #' @param dir string of path to git repository directory
 #' @return Invisible logical scalar indicating whether successful or error.
 #' @export
-git_commit <- function(message = paste(user(), Sys.time(), sep = ": "), dir = ".") {
+git_commit <- function(message = paste(user(), Sys.time(), sep = ": "), 
+  push = getOption("git.push", TRUE), dir = ".") {
 
   assert_that(is.string(message))
+  assert_that(is.flag(push) && noNA(push))
   assert_that(is.string(dir)) 
   
   if(!is_git_repository(dir))
@@ -52,17 +55,20 @@ git_commit <- function(message = paste(user(), Sys.time(), sep = ": "), dir = ".
   system("git add --all .")
   system(paste0("git commit -a -m \"", message, "\""))
   
+  if(push)
+    system("git push")
+  
   invisible(TRUE)
 }
 
-#' Push Git Commits
+#' Get Git Tags
 #' 
-#' Pushes commits in git repository in directory \code{dir} to remote.
+#' Get Gits Tags
 #' 
 #' @param dir string of path to git repository directory
-#' @return Invisible logical scalar indicating whether successful or error.
+#' @return Character vector of tag names
 #' @export
-git_push <- function (dir = ".") {
+git_tags <- function (dir = ".") {
   assert_that(is.string(dir))
   
   if(!is_git_repository(dir))
@@ -75,8 +81,150 @@ git_push <- function (dir = ".") {
   
   setwd(dir)
   
-  system("git push")
+  system("git tag", intern = TRUE)
+}
+
+#' Test If Git Tag
+#' 
+#' Test whether tag is a git tag
+#' 
+#' @param tag string of tag name 
+#' @param dir string of path to git repository directory
+#' @return Flag indicating whether or not tag is a tag
+#' @export
+is_git_tag <- function (tag, dir = ".") {
+  assert_that(is.string(tag))
+  
+  tag %in% git_tags(dir)
+}
+
+#' Tag Current Git
+#' 
+#' Tags current branch in git repository in directory \code{dir}.
+#' 
+#' @param tag string of tag name 
+#' @param retag tag indicating whether to retag if already exists
+#' @param push flag indicating whether to push tag
+#' @param dir string of path to git repository directory
+#' @return Invisible logical scalar indicating whether successful or error.
+#' @export
+git_tag <- function (tag, retag = FALSE, push = getOption("git.push", TRUE), dir = ".") {
+  assert_that(is.string(tag))
+  assert_that(is.flag(retag) && noNA(retag))
+  assert_that(is.flag(push) && noNA(push))
+  assert_that(is.string(dir))
+  
+  if(!is_git_repository(dir))
+    stop("directory '", dir, "' is not a git repository")
+  
+  check_git()
+  
+  wd <- getwd()
+  on.exit(setwd(wd))
+  
+  setwd(dir)
+  
+  if(is_git_tag(tag)) {
+    if(!retag)
+      stop("tag '", tag, "' already exists")
+    system(paste("git tag -d", tag))    
+  }
+  system(paste("git tag", tag))
+  
+  if(push)
+    system(paste("git push origin", tag))
+  
   invisible(TRUE)
+}
+
+#' Push Tag
+#' 
+#' Pushes tag to remote repository.
+#' 
+#' @param tag string of tag name 
+#' @param retag tag indicating whether to retag if already exists
+#' @param push flag indicating whether to push tag
+#' @param dir string of path to git repository directory
+#' @return Invisible logical scalar indicating whether successful or error.
+#' @export
+git_push_tag <- function (tag, retag = FALSE, push = getOption("git.push", TRUE), dir = ".") {
+  assert_that(is.string(tag))
+  assert_that(is.flag(retag) && noNA(retag))
+  assert_that(is.flag(push) && noNA(push))
+  assert_that(is.string(dir))
+  
+  if(!is_git_repository(dir))
+    stop("directory '", dir, "' is not a git repository")
+  
+  check_git()
+  
+  wd <- getwd()
+  on.exit(setwd(wd))
+  
+  setwd(dir)
+  
+  if(is_git_tag(tag)) {
+    if(!retag)
+      stop("tag '", tag, "' already exists")
+    system(paste("git tag -d", tag))    
+  }
+  system(paste("git tag", tag))
+  
+  if(push)
+    system(paste("git push origin", tag))
+  
+  invisible(TRUE)
+}
+
+#' Get Git Branches
+#' 
+#' Gets git branches
+#' 
+#' @param dir string of path to git repository directory
+#' @return Character vector of branch names.
+#' @export
+git_branches <- function (dir = ".") {
+  assert_that(is.string(dir))
+  
+  if(!is_git_repository(dir))
+    stop("directory '", dir, "' is not a git repository")
+  
+  check_git()
+  
+  wd <- getwd()
+  on.exit(setwd(wd))
+  
+  setwd(dir)
+  
+  branches <- system("git branch", intern = TRUE)
+  
+  gsub("^(([*] )|(  ))", "", branches)
+}
+
+#' Get Git Current Branch
+#' 
+#' Gets git current branch
+#' 
+#' @param dir string of path to git repository directory
+#' @return String of current branch name.
+#' @export
+git_current_branch <- function (dir = ".") {
+  assert_that(is.string(dir))
+  
+  if(!is_git_repository(dir))
+    stop("directory '", dir, "' is not a git repository")
+  
+  check_git()
+  
+  wd <- getwd()
+  on.exit(setwd(wd))
+  
+  setwd(dir)
+  
+  branches <- system("git branch", intern = TRUE)
+  
+  branches <- branches[grepl("^[*]", branches)]
+  gsub("^([*] )", "", branches)
 }
 
 #' Test If Git Branch
@@ -88,22 +236,7 @@ git_push <- function (dir = ".") {
 #' @return Flag indicating whether or not branch is a branch
 #' @export
 is_git_branch <- function (branch = "master", dir = ".") {
-  assert_that(is.string(branch))
-  assert_that(is.string(dir))
-  
-  if(!is_git_repository(dir))
-    stop("directory '", dir, "' is not a git repository")
-  
-  check_git()
-  
-  wd <- getwd()
-  on.exit(setwd(wd))
-  
-  setwd(dir)
-  
-  branches <- system("git branch", intern = TRUE)
-  
-  paste0("  ", branch) %in% branches || paste0("* ", branch) %in% branches
+  branch %in% git_branches(dir = dir)
 }
 
 #' Test If Current Git Branch
@@ -115,7 +248,24 @@ is_git_branch <- function (branch = "master", dir = ".") {
 #' @return Flag indicating whether or not branch is the current branch
 #' @export
 is_git_current_branch <- function (branch = "master", dir = ".") {
+  branch == git_current_branch(dir)
+}
+
+#' Change Git Branch
+#' 
+#' Change git branch
+#' 
+#' @param branch string of branch name 
+#' @param create flag indicating whether to create branch if doesn't exist
+#' @param push flag indicating whether to push origin of created branch
+#' @param dir string of path to git repository directory
+#' @return Invisible flag indicating whether successful or error.
+#' @export
+git_branch <- function(branch = "dev", create = FALSE, push = getOption("git.push", TRUE), dir = ".") {
+  
   assert_that(is.string(branch))
+  assert_that(is.flag(create) && noNA(create))
+  assert_that(is.flag(push) && noNA(push))
   assert_that(is.string(dir))
   
   if(!is_git_repository(dir))
@@ -128,20 +278,33 @@ is_git_current_branch <- function (branch = "master", dir = ".") {
   
   setwd(dir)
   
-  branches <- system("git branch", intern = TRUE)
-  
-  paste0("* ", branch) %in% branches
+  if(!is_git_branch(branch)) {
+    if(!create) {
+      stop("branch '", branch, "' not found")
+    }
+    system(paste("git branch", branch))
+    if(push)
+      system(paste("git push -u origin", branch))
+  }
+
+  if(is_git_current_branch(branch)) {
+    message("branch '", branch, "' is already the current branch")   
+    return (invisible(TRUE))
+  }
+  system(paste("git checkout", branch))
+  return (invisible(TRUE))
 }
 
-#' Change Git Branch
+#' Push Origin of Current Git Branch
 #' 
-#' Changes git branch
+#' Pushes origin of git branch
 #' 
 #' @param branch string of branch name 
 #' @param dir string of path to git repository directory
 #' @return Invisible flag indicating whether successful or error.
 #' @export
-git_checkout <- function(branch = "master", dir = ".") {
+git_push_origin_branch <- function(branch = "dev", dir = ".") {
+  
   assert_that(is.string(branch))
   assert_that(is.string(dir))
   
@@ -154,18 +317,12 @@ git_checkout <- function(branch = "master", dir = ".") {
   on.exit(setwd(wd))
   
   setwd(dir)
-    
-  if(is_git_current_branch(branch)) {
-    message("branch '", branch, "' is already the current branch")
-    return (invisible(TRUE))
-  }
   
   if(!is_git_branch(branch)) {
-    stop("branch '", branch,"' not found")
+      stop("branch '", branch, "' not found")
   }
-  
-  system(paste("git checkout", branch))
-  return (invisible(TRUE))    
+  system(paste("git push -u origin", branch))
+  return (invisible(TRUE))
 }
 
 #' Merge Git Branches
@@ -203,66 +360,4 @@ git_merge <- function(branch = "dev", dir = ".") {
   
   system(paste("git merge", branch))
   return (invisible(TRUE))  
-}
-
-#' Create Git Branch
-#' 
-#' Create git branch
-#' 
-#' @param branch string of branch name 
-#' @param dir string of path to git repository directory
-#' @return Invisible flag indicating whether successful or error.
-#' @export
-git_branch <- function(branch = "dev", dir = ".") {
-
-  assert_that(is.string(branch))
-  assert_that(is.string(dir))
-  
-  if(!is_git_repository(dir))
-    stop("directory '", dir, "' is not a git repository")
-  
-  check_git()
-  
-  wd <- getwd()
-  on.exit(setwd(wd))
-  
-  setwd(dir)
-  
-  if(is_git_branch(branch)) {
-    stop("branch '", branch, "' already exists")
-  }
-  
-  system(paste("git branch", branch))
-  return (invisible(TRUE))
-}
-
-#' Push Origin of Git Branch
-#' 
-#' Pushes origin of git branch
-#' 
-#' @param branch string of branch name 
-#' @param dir string of path to git repository directory
-#' @return Invisible flag indicating whether successful or error.
-#' @export
-git_push_origin_branch <- function(branch = "dev", dir = ".") {
-  
-  assert_that(is.string(branch))
-  assert_that(is.string(dir))
-  
-  if(!is_git_repository(dir))
-    stop("directory '", dir, "' is not a git repository")
-  
-  check_git()
-  
-  wd <- getwd()
-  on.exit(setwd(wd))
-  
-  setwd(dir)
-  
-  if(!is_git_branch(branch)) {
-    stop("branch '", branch, "' not found")
-  }
-  
-  system(paste("git push -u origin", branch))
-  return (invisible(TRUE))
 }
