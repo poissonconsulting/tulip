@@ -261,7 +261,7 @@ is_git_current_branch <- function (branch = "master", dir = ".") {
 #' @param dir string of path to git repository directory
 #' @return Invisible flag indicating whether successful or error.
 #' @export
-git_branch <- function(branch = "dev", create = FALSE, push = getOption("git.push", TRUE), dir = ".") {
+git_branch <- function(branch = "master", create = FALSE, push = getOption("git.push", TRUE), dir = ".") {
   
   assert_that(is.string(branch))
   assert_that(is.flag(create) && noNA(create))
