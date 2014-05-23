@@ -2,7 +2,7 @@
 \alias{git_branch}
 \title{Change Git Branch}
 \usage{
-git_branch(branch = "dev", create = FALSE, push = getOption("git.push",
+git_branch(branch = "master", create = FALSE, push = getOption("git.push",
   TRUE), dir = ".")
 }
 \arguments{
