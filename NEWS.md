@@ -1,9 +1,8 @@
 # NEWS
 
-#### tulip 0.0.8.99
+#### tulip 0.0.9
 
-- added `check_git()` to ensure git binary is on path
-- added `is_git_repository()`
+- added `git` functions
 
 #### tulip 0.0.8
 
