@@ -1,5 +1,9 @@
 # NEWS
 
+#### tulip 0.1.0
+
+- yesno has reduced set of possible yes and no answers
+
 #### tulip 0.0.9
 
 - added `git` functions

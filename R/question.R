@@ -8,8 +8,8 @@
 #' @return A logical scalar indicating whether reponse was yes (TRUE) or no (FALSE).
 #' @export
 yesno <- function(question) {
-  yeses <- c("Yes", "Definitely", "For sure", "Yup", "Yeah")
-  nos <- c("No way", "Not yet", "I forgot", "No", "Nope")
+  yeses <- c("Yes", "Yup", "Yeah")
+  nos <- c("No", "No way", "Nope")
   
   cat(question)
   qs <- c(sample(yeses, 1), sample(nos, 2))
