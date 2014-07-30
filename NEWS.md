@@ -1,6 +1,6 @@
 # NEWS
 
-#### tulip 0.1.0
+#### tulip 0.0.10
 
 - yesno has reduced set of possible yes and no answers
 
