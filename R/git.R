@@ -32,8 +32,6 @@ is_git_repository <- function (dir = ".") {
 #' 
 #' @param dir string of relative or absolute path to directory. Default is current working directory.
 #' @return Flag indicating whether directory is a git repository.
-#' @examples
-#' is_git_remote()
 #' @export
 is_git_remote <- function (dir = ".") {
   assert_that(is.string(dir)) 

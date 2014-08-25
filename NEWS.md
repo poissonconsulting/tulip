@@ -1,8 +1,10 @@
+
 # NEWS
 
 #### tulip 0.0.11
 
 - added `git_url_http2ssh` to switch remote URLs from HTTPS to SSH
+- removed git_push_tag as use git_tag
 
 #### tulip 0.0.10
 

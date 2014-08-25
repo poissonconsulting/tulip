@@ -14,7 +14,4 @@ Flag indicating whether directory is a git repository.
 \description{
 Test if directory is a git remote repository.
 }
-\examples{
-is_git_remote()
-}
 
