@@ -135,7 +135,7 @@ git_tag <- function (tag, retag = FALSE, push = getOption("git.push", TRUE), dir
   if(!is_git_repository(dir))
     stop("directory '", dir, "' is not a git repository")
   
-  if(push & is_git_remote(dir))
+  if(push & !is_git_remote(dir))
     warning("directory '", dir, "' is not a git remote repository")
   
   check_git()
