@@ -386,17 +386,16 @@ git_url_http2ssh <- function (dir = ".") {
   setwd(dir)
   
   txt <- system("git remote -v", intern = TRUE)[1]
-  
-  txt <- sub("(^origin\t)(.*$)", "\\2", txt, perl = TRUE)
-  
-  if(grepl("^https://github[.]com/", txt)) {
-      repository <- sub("(.*/)(\\w+)([.]git.*)", "\\2", txt, perl = TRUE)
-      username <- sub("(.*/)(\\w+)(/)(\\w+)([.]git.*)", "\\2", txt, perl = TRUE)
+    
+  if(grepl("^origin\thttps://github[.]com/", txt)) {
+      repository <- sub("(.*/)([^/]+)([.]git.*)", "\\2", txt, perl = TRUE)
+      username <- sub("(.*/)([^/]+)(/)([^/]+)([.]git.*)", "\\2", txt, perl = TRUE)
     
       txt <- paste0("git remote set-url origin git@github.com:", 
         username, "/", repository, ".git")
     
     system(txt)
   }
-  invisible(TRUE)
+  txt <- system("git remote -v", intern = TRUE)[1]
+  invisible(grepl("^origin\tgit@github[.]com:", txt))
 }
