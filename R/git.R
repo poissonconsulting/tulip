@@ -160,44 +160,6 @@ git_tag <- function (tag, retag = FALSE, push = getOption("git.push", TRUE), dir
   invisible(TRUE)
 }
 
-#' Push Tag
-#' 
-#' Pushes tag to remote repository.
-#' 
-#' @param tag string of tag name 
-#' @param retag tag indicating whether to retag if already exists
-#' @param push flag indicating whether to push tag
-#' @param dir string of path to git repository directory
-#' @return Invisible logical scalar indicating whether successful or error.
-git_push_tag <- function (tag, retag = FALSE, push = getOption("git.push", TRUE), dir = ".") {
-  assert_that(is.string(tag))
-  assert_that(is.flag(retag) && noNA(retag))
-  assert_that(is.flag(push) && noNA(push))
-  assert_that(is.string(dir))
-  
-  if(!is_git_repository(dir))
-    stop("directory '", dir, "' is not a git repository")
-  
-  check_git()
-  
-  wd <- getwd()
-  on.exit(setwd(wd))
-  
-  setwd(dir)
-  
-  if(is_git_tag(tag)) {
-    if(!retag)
-      stop("tag '", tag, "' already exists")
-    system(paste("git tag -d", tag))    
-  }
-  system(paste("git tag", tag))
-  
-  if(push)
-    system(paste("git push origin", tag))
-  
-  invisible(TRUE)
-}
-
 #' Get Git Branches
 #' 
 #' Gets git branches
