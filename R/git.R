@@ -26,6 +26,24 @@ is_git_repository <- function (dir = ".") {
   file.exists(file.path(dir, ".git"))
 }
 
+#' Is Git Remote Repository
+#' 
+#' Test if directory is a git remote repository.
+#' 
+#' @param dir string of relative or absolute path to directory. Default is current working directory.
+#' @return Flag indicating whether directory is a git repository.
+#' @examples
+#' is_git_remote()
+#' @export
+is_git_remote <- function (dir = ".") {
+  assert_that(is.string(dir)) 
+  
+  if(!is_git_repository(dir))
+    stop("directory '", dir, "' is not a git repository")
+  
+  !identical(system("git remote -v", intern = TRUE), character(0))
+}
+
 #' Commit Git Changes
 #' 
 #' Commits changes to the git repository in directory \code{dir}.
@@ -117,6 +135,9 @@ git_tag <- function (tag, retag = FALSE, push = getOption("git.push", TRUE), dir
   if(!is_git_repository(dir))
     stop("directory '", dir, "' is not a git repository")
   
+  if(push & is_git_remote(dir))
+    warning("directory '", dir, "' is not a git remote repository")
+  
   check_git()
   
   wd <- getwd()
@@ -127,11 +148,13 @@ git_tag <- function (tag, retag = FALSE, push = getOption("git.push", TRUE), dir
   if(is_git_tag(tag)) {
     if(!retag)
       stop("tag '", tag, "' already exists")
-    system(paste("git tag -d", tag))    
+    system(paste("git tag -d", tag)) 
+    if(is_git_remote() && push)
+      system(paste("git push --delete origin", tag))     
   }
   system(paste("git tag", tag))
   
-  if(push)
+  if(is_git_remote() && push)
     system(paste("git push origin", tag))
   
   invisible(TRUE)
@@ -146,7 +169,6 @@ git_tag <- function (tag, retag = FALSE, push = getOption("git.push", TRUE), dir
 #' @param push flag indicating whether to push tag
 #' @param dir string of path to git repository directory
 #' @return Invisible logical scalar indicating whether successful or error.
-#' @export
 git_push_tag <- function (tag, retag = FALSE, push = getOption("git.push", TRUE), dir = ".") {
   assert_that(is.string(tag))
   assert_that(is.flag(retag) && noNA(retag))
@@ -375,8 +397,8 @@ git_merge <- function(branch = "dev", dir = ".") {
 git_url_http2ssh <- function (dir = ".") {
   assert_that(is.string(dir))
   
-  if(!is_git_repository(dir))
-    stop("directory '", dir, "' is not a git repository")
+  if(!is_git_remote(dir))
+    stop("directory '", dir, "' is not a git remote repository")
   
   check_git()
   
