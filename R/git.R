@@ -361,3 +361,41 @@ git_merge <- function(branch = "dev", dir = ".") {
   system(paste("git merge", branch))
   return (invisible(TRUE))  
 }
+
+
+
+#' Switch remote URLs from HTTPS to SSH
+#' 
+#' Switches remote URLs from HTTPS to SSH
+#' 
+#' @param dir string of path to git repository directory
+#' @return Invisible flag indicating whether successful or error.
+#' @export
+git_url_http2ssh <- function (dir = ".") {
+  assert_that(is.string(dir))
+  
+  if(!is_git_repository(dir))
+    stop("directory '", dir, "' is not a git repository")
+  
+  check_git()
+  
+  wd <- getwd()
+  on.exit(setwd(wd))
+  
+  setwd(dir)
+  
+  txt <- system("git remote -v", intern = TRUE)[1]
+  
+  txt <- sub("(^origin\t)(.*$)", "\\2", txt, perl = TRUE)
+  
+  if(grepl("^https://github[.]com/", txt)) {
+      repository <- sub("(.*/)(\\w+)([.]git.*)", "\\2", txt, perl = TRUE)
+      username <- sub("(.*/)(\\w+)(/)(\\w+)([.]git.*)", "\\2", txt, perl = TRUE)
+    
+      txt <- paste0("git remote set-url origin git@github.com:", 
+        username, "/", repository, ".git")
+    
+    system(txt)
+  }
+  invisible(TRUE)
+}
