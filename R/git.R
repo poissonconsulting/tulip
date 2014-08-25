@@ -369,6 +369,7 @@ git_merge <- function(branch = "dev", dir = ".") {
 #' Switches remote URLs from HTTPS to SSH
 #' 
 #' @param dir string of path to git repository directory
+#' @seealso \url{https://help.github.com/articles/changing-a-remote-s-url}
 #' @return Invisible flag indicating whether successful or error.
 #' @export
 git_url_http2ssh <- function (dir = ".") {

@@ -14,4 +14,7 @@ Invisible flag indicating whether successful or error.
 \description{
 Switches remote URLs from HTTPS to SSH
 }
+\seealso{
+\url{https://help.github.com/articles/changing-a-remote-s-url}
+}
 
