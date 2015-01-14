@@ -93,10 +93,10 @@ git_commit <- function(message = paste(user(), Sys.time(), sep = ": "),
 
   setwd(dir)
 
-  git_pull(dir = dir)
-
   system("git add --all .")
   system(paste0("git commit -a -m \"", message, "\""))
+
+  git_pull(dir = dir)
 
   if(push)
     system("git push")
