@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/poissonconsulting/tulip.png?branch=master)](https://travis-ci.org/poissonconsulting/tulip)
+
 # tulip
 
 tulip is an R package of Poiscon consulting's UTILity Functions. tulip

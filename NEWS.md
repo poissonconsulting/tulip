@@ -1,6 +1,10 @@
 
 # NEWS
 
+#### tulip 0.0.12
+
+- added `git_pull` which is called before any commits (or pushes)
+ 
 #### tulip 0.0.11
 
 - added `git_url_http2ssh` to switch remote URLs from HTTPS to SSH
