@@ -4,8 +4,7 @@
 \alias{git_branch}
 \title{Change Git Branch}
 \usage{
-git_branch(branch = "master", create = FALSE, push = getOption("git.push",
-  TRUE), dir = ".")
+git_branch(branch = "master", create = FALSE, push = TRUE, dir = ".")
 }
 \arguments{
 \item{branch}{string of branch name}

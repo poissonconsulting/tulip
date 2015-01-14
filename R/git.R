@@ -47,10 +47,12 @@ is_git_remote <- function (dir = ".") {
 #' Pulls changes from the online git repository.
 #'
 #' @param dir string of path to git repository directory
+#' @param rebase flag indicating whether to rebase or merge
 #' @return Invisible logical scalar indicating whether successful or error.
 #' @export
-git_pull <- function (dir = ".") {
+git_pull <- function (dir = ".", rebase = TRUE) {
   assert_that(is.string(dir))
+  assert_that(is.flag(rebase) && noNA(rebase))
 
   if(!is_git_repository(dir))
     stop("directory '", dir, "' is not a git repository")
@@ -62,8 +64,11 @@ git_pull <- function (dir = ".") {
 
   setwd(dir)
 
-  system("git pull")
-
+  if(rebase) {
+    system("git pull --rebase")
+  } else {
+    system("git pull")
+  }
   invisible(TRUE)
 }
 
@@ -72,14 +77,18 @@ git_pull <- function (dir = ".") {
 #' Commits changes to the git repository in directory \code{dir}.
 #'
 #' @param message string of commit message
+#' @param pull flag indicating whether to pull after commiting
+#' @param rebase flag indicating whether to rebase when pulling
 #' @param push flag indicating whether to push commits
 #' @param dir string of path to git repository directory
 #' @return Invisible logical scalar indicating whether successful or error.
 #' @export
 git_commit <- function(message = paste(user(), Sys.time(), sep = ": "),
-  push = getOption("git.push", TRUE), dir = ".") {
+                       pull = TRUE, rebase = TRUE, push = TRUE, dir = ".") {
 
   assert_that(is.string(message))
+  assert_that(is.flag(pull) && noNA(pull))
+  assert_that(is.flag(rebase) && noNA(rebase))
   assert_that(is.flag(push) && noNA(push))
   assert_that(is.string(dir))
 
@@ -96,8 +105,9 @@ git_commit <- function(message = paste(user(), Sys.time(), sep = ": "),
   system("git add --all .")
   system(paste0("git commit -a -m \"", message, "\""))
 
-  git_pull(dir = dir)
-
+  if(pull) {
+    git_pull(rebase = rebase, dir = dir)
+  }
   if(push)
     system("git push")
 
@@ -151,7 +161,7 @@ is_git_tag <- function (tag, dir = ".") {
 #' @param dir string of path to git repository directory
 #' @return Invisible logical scalar indicating whether successful or error.
 #' @export
-git_tag <- function (tag, retag = FALSE, push = getOption("git.push", TRUE), dir = ".") {
+git_tag <- function (tag, retag = FALSE, push = TRUE, dir = ".") {
   assert_that(is.string(tag))
   assert_that(is.flag(retag) && noNA(retag))
   assert_that(is.flag(push) && noNA(push))
@@ -270,7 +280,7 @@ is_git_current_branch <- function (branch = "master", dir = ".") {
 #' @param dir string of path to git repository directory
 #' @return Invisible flag indicating whether successful or error.
 #' @export
-git_branch <- function(branch = "master", create = FALSE, push = getOption("git.push", TRUE), dir = ".") {
+git_branch <- function(branch = "master", create = FALSE, push = TRUE, dir = ".") {
 
   assert_that(is.string(branch))
   assert_that(is.flag(create) && noNA(create))
@@ -328,7 +338,7 @@ git_push_origin_branch <- function(branch = "dev", dir = ".") {
   setwd(dir)
 
   if(!is_git_branch(branch)) {
-      stop("branch '", branch, "' not found")
+    stop("branch '", branch, "' not found")
   }
   system(paste("git push -u origin", branch))
   return (invisible(TRUE))
@@ -397,11 +407,11 @@ git_url_http2ssh <- function (dir = ".") {
   txt <- system("git remote -v", intern = TRUE)[1]
 
   if(grepl("^origin\thttps://github[.]com/", txt)) {
-      repository <- sub("(.*/)([^/]+)([.]git.*)", "\\2", txt, perl = TRUE)
-      username <- sub("(.*/)([^/]+)(/)([^/]+)([.]git.*)", "\\2", txt, perl = TRUE)
+    repository <- sub("(.*/)([^/]+)([.]git.*)", "\\2", txt, perl = TRUE)
+    username <- sub("(.*/)([^/]+)(/)([^/]+)([.]git.*)", "\\2", txt, perl = TRUE)
 
-      txt <- paste0("git remote set-url origin git@github.com:",
-        username, "/", repository, ".git")
+    txt <- paste0("git remote set-url origin git@github.com:",
+                  username, "/", repository, ".git")
 
     system(txt)
   }

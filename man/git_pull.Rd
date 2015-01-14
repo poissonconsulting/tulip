@@ -4,10 +4,12 @@
 \alias{git_pull}
 \title{Pull Git Changes}
 \usage{
-git_pull(dir = ".")
+git_pull(dir = ".", rebase = TRUE)
 }
 \arguments{
 \item{dir}{string of path to git repository directory}
+
+\item{rebase}{flag indicating whether to rebase or merge}
 }
 \value{
 Invisible logical scalar indicating whether successful or error.

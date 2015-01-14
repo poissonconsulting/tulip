@@ -4,7 +4,7 @@
 \alias{git_tag}
 \title{Tag Current Git}
 \usage{
-git_tag(tag, retag = FALSE, push = getOption("git.push", TRUE), dir = ".")
+git_tag(tag, retag = FALSE, push = TRUE, dir = ".")
 }
 \arguments{
 \item{tag}{string of tag name}
