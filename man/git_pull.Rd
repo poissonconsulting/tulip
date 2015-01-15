@@ -4,7 +4,7 @@
 \alias{git_pull}
 \title{Pull Git Changes}
 \usage{
-git_pull(dir = ".", rebase = TRUE)
+git_pull(dir = ".", rebase = FALSE)
 }
 \arguments{
 \item{dir}{string of path to git repository directory}

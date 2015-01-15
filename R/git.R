@@ -50,7 +50,7 @@ is_git_remote <- function (dir = ".") {
 #' @param rebase flag indicating whether to rebase or merge
 #' @return Invisible logical scalar indicating whether successful or error.
 #' @export
-git_pull <- function (dir = ".", rebase = TRUE) {
+git_pull <- function (dir = ".", rebase = FALSE) {
   assert_that(is.string(dir))
   assert_that(is.flag(rebase) && noNA(rebase))
 
@@ -84,7 +84,7 @@ git_pull <- function (dir = ".", rebase = TRUE) {
 #' @return Invisible logical scalar indicating whether successful or error.
 #' @export
 git_commit <- function(message = paste(user(), Sys.time(), sep = ": "),
-                       pull = TRUE, rebase = TRUE, push = TRUE, dir = ".") {
+                       pull = TRUE, rebase = FALSE, push = TRUE, dir = ".") {
 
   assert_that(is.string(message))
   assert_that(is.flag(pull) && noNA(pull))

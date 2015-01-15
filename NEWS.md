@@ -1,5 +1,8 @@
-
 # NEWS
+
+#### tulip 0.0.13
+
+- `git_pull` by default now merges (not rebases)
 
 #### tulip 0.0.12
 

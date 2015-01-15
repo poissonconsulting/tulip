@@ -5,7 +5,7 @@
 \title{Commit Git Changes}
 \usage{
 git_commit(message = paste(user(), Sys.time(), sep = ": "), pull = TRUE,
-  rebase = TRUE, push = TRUE, dir = ".")
+  rebase = FALSE, push = TRUE, dir = ".")
 }
 \arguments{
 \item{message}{string of commit message}
