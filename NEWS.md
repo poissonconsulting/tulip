@@ -1,32 +1,30 @@
-# NEWS
-
-#### tulip 0.0.13
+# tulip v0.0.13
 
 - `git_pull` by default now merges (not rebases)
 
-#### tulip 0.0.12
+# tulip v0.0.12
 
 - added `git_pull` which is called before any commits (or pushes)
  
-#### tulip 0.0.11
+# tulip v0.0.11
 
 - added `git_url_http2ssh` to switch remote URLs from HTTPS to SSH
 - removed git_push_tag as use git_tag
 
-#### tulip 0.0.10
+# tulip v0.0.10
 
 - yesno has reduced set of possible yes and no answers
 
-#### tulip 0.0.9
+# tulip v0.0.9
 
 - added `git` functions
 
-#### tulip 0.0.8
+# tulip v0.0.8
 
 - added `paste_names()` function
 - added `reverse_strings()` function
 - removed `diel_period()` function
 
-#### tulip 0.0.7
+# tulip v0.0.7
 
 - added `move_directory()` function
