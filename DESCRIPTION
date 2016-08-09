@@ -1,8 +1,8 @@
 Package: tulip
 Type: Package
 Title: Poisson Consulting's Utility Functions
-Version: 0.0.13
-Date: 2015-01-14
+Version: 0.0.14
+Date: 2016-08-09
 Author: Joe Thorley [aut, cre]
 Maintainer: Joe Thorley <joe@poissonconsulting.ca>
 Description: Wrapper functions to query the operating system and
@@ -11,11 +11,11 @@ Description: Wrapper functions to query the operating system and
 Depends:
     R (>= 3.1.0)
 Imports:
-    tools (>= 3.1.0),
-    devtools (>= 1.5),
-    assertthat (>= 0.1),
-    lubridate (>= 1.3.3)
+    assertthat,
+    devtools,
+    lubridate,
+    tools
 Suggests:
-    testthat (>= 0.8.1)
-License: file LICENSE
-Copyright: 2014 Poisson Consulting Ltd.
+    testthat
+License: MIT + file LICENSE
+RoxygenNote: 5.0.1

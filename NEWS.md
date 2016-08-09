@@ -1,3 +1,7 @@
+# tulip v0.0.14
+
+- update LICENSE
+
 # tulip v0.0.13
 
 - `git_pull` by default now merges (not rebases)
