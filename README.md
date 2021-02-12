@@ -1,5 +1,4 @@
-![stability-deprecated](https://img.shields.io/badge/stability-deprecated-red.svg)
-[![Build Status](https://travis-ci.org/poissonconsulting/tulip.png?branch=master)](https://travis-ci.org/poissonconsulting/tulip)
+[![Lifecycle: deprecated](https://img.shields.io/badge/lifecycle-deprecated-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#deprecated)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 # tulip
